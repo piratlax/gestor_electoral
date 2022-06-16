@@ -58,12 +58,6 @@
               </a>
             </li>
 
-            <li class="nav-item">
-              <a href="padron" class="nav-link">
-                <i class="nav-icon far fa-address-card"></i>
-                <p>Padron</p>
-              </a>
-            </li>
 
             <li class="nav-item">
               <a href="organizacion" class="nav-link">

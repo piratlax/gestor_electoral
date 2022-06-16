@@ -3,7 +3,6 @@
 //controllers
 require_once "controllers/template.controller.php";
 require_once "controllers/users.controller.php";
-require_once "controllers/padron.controller.php";
 require_once "controllers/organizacion.controller.php";
 require_once "controllers/coordinador.controller.php";
 require_once "controllers/promotor.controller.php";
@@ -13,7 +12,6 @@ require_once "controllers/problematica.controller.php";
 
 //models
 require_once "models/users.model.php";
-require_once "models/padron.model.php";
 require_once "models/organizacion.model.php";
 require_once "models/coordinador.model.php";
 require_once "models/personas.model.php";

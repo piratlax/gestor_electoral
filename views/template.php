@@ -101,7 +101,6 @@ if(isset($_GET["ruta"])){
      $_GET["ruta"]=="configuracion" ||
      $_GET["ruta"]=="solicitudes" ||
      $_GET["ruta"]=="problematicas" ||
-     $_GET["ruta"]=="padron" ||
      $_GET["ruta"]=="organizacion" ||
      $_GET["ruta"]=="coordinadores" ||
      $_GET["ruta"]=="agregarcoordinador" ||
