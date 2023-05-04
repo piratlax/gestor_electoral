@@ -1,11 +1,10 @@
-
 <!-- hacer un fondo con imagen -->
 <div class="login-page">
 
   <div class="login-box">
     <div class="login-logo">
       <!-- <img src="views/img/template/AdminLTELogo.png" class="rounded mx-auto d-block" alt=""> -->
-      <b>Gestor</b> GR</a>
+      <b>Gestión</b> Electoral</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -14,7 +13,7 @@
 
         <form method="post">
           <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Usuario" name="ingUsuario" required autofocus>
+            <input type="text" class="form-control" value="admin" name="ingUsuario" required autofocus>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -22,7 +21,7 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password" name="ingPassword" required>
+            <input type="password" class="form-control" value="123" name="ingPassword" required>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
@@ -32,7 +31,7 @@
           <div class="row">
             <div class="col-8">
               <div>
-                
+
               </div>
             </div>
             <!-- /.col -->
@@ -42,15 +41,15 @@
             <!-- /.col -->
           </div>
           <?php
-            $login = new ControladorUsuarios();
-            $login->ctrAccesoUsuario();
+          $login = new ControladorUsuarios();
+          $login->ctrAccesoUsuario();
           ?>
         </form>
 
-        
+
       </div>
       <!-- /.login-card-body -->
     </div>
   </div>
-<!-- /.login-box -->
+  <!-- /.login-box -->
 </div>
