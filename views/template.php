@@ -93,7 +93,8 @@
         $_GET["ruta"] == "promotores" ||
         $_GET["ruta"] == "promovidos" ||
         $_GET["ruta"] == "altapromovidos" ||
-        $_GET["ruta"] == "altacoordinador"
+        $_GET["ruta"] == "altacoordinador" ||
+        $_GET["ruta"] == "seccionales"
       ) {
         include "modules/" . $_GET["ruta"] . ".php";
       } else {
@@ -114,6 +115,7 @@
   <script src="views/js/usuarios.js"></script>
   <script src="views/js/padron.js"></script>
   <script src="views/js/organizacion.js"></script>
+  <script src="views/js/seccional.js"></script>
   <script src="views/js/altacoordinador.js"></script>
   <script src="views/js/altapromotor.js"></script>
   <script src="views/js/altapromovido.js"></script>
