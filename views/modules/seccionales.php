@@ -262,6 +262,7 @@ MODAL EDITAR SECCIONAL
               </div>
             </div>
 
+            <!-- ENTRADA PARA LA ZONA -->
             <div>
               <label for="editarZona">Tipo de Zona:</label>
               <div class="input-group">

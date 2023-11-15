@@ -10,6 +10,7 @@ require_once "controllers/promovido.controller.php";
 require_once "controllers/solicitud.controller.php";
 require_once "controllers/problematica.controller.php";
 require_once "controllers/seccionales.controller.php";
+require_once "controllers/nominal.controller.php";
 
 //models
 require_once "models/users.model.php";
@@ -21,5 +22,6 @@ require_once "models/promovido.model.php";
 require_once "models/solicitud.model.php";
 require_once "models/problematica.model.php";
 require_once "models/seccionales.model.php";
+require_once "models/nominal.model.php";
 $template = new ControllerTemplate();
 $template->ctrTemplate();

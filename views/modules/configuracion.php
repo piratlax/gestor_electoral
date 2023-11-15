@@ -48,6 +48,12 @@
             <button class="btn btn-warning btn-lg">Acceder</button>
           </a>
         </div>
+        <div class="card-body text-center">
+          <h4 class="card-text ">Integración al Listado Nominal</h4>
+          <a href="nominal">
+            <button class="btn btn-warning btn-lg">Acceder</button>
+          </a>
+        </div>
 
 
       </div>
