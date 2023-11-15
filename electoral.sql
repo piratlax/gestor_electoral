@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.28, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: electoral
 -- ------------------------------------------------------
--- Server version	5.7.33
+-- Server version	8.0.30
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `nominal`
+--
+
+DROP TABLE IF EXISTS `nominal`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nominal` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `paterno` varchar(45) DEFAULT NULL,
+  `materno` varchar(45) DEFAULT NULL,
+  `curp` varchar(45) DEFAULT NULL,
+  `idseccion` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_nominal_secciones1_idx` (`idseccion`),
+  CONSTRAINT `fk_nominal_secciones1` FOREIGN KEY (`idseccion`) REFERENCES `secciones` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nominal`
+--
+
+LOCK TABLES `nominal` WRITE;
+/*!40000 ALTER TABLE `nominal` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nominal` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `organizaciones`
 --
 
@@ -23,10 +52,10 @@ DROP TABLE IF EXISTS `organizaciones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `organizaciones` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `organizacion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=107 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -35,6 +64,7 @@ CREATE TABLE `organizaciones` (
 
 LOCK TABLES `organizaciones` WRITE;
 /*!40000 ALTER TABLE `organizaciones` DISABLE KEYS */;
+INSERT INTO `organizaciones` VALUES (106,'PRINCIPAL');
 /*!40000 ALTER TABLE `organizaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -46,7 +76,7 @@ DROP TABLE IF EXISTS `personas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `personas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(250) DEFAULT NULL,
   `paterno` varchar(45) DEFAULT NULL,
   `materno` varchar(45) DEFAULT NULL,
@@ -60,13 +90,16 @@ CREATE TABLE `personas` (
   `foto` varchar(250) DEFAULT NULL,
   `inef` varchar(250) DEFAULT NULL,
   `inet` varchar(250) DEFAULT NULL,
-  `localizacion` varchar(100) DEFAULT NULL,
-  `seccion` varchar(10) DEFAULT NULL,
   `persona_clave` varchar(45) DEFAULT NULL,
-  `latitud` varchar(50) DEFAULT NULL,
-  `longitud` varchar(50) DEFAULT NULL,
+  `latitud` varchar(45) DEFAULT NULL,
+  `longitud` varchar(45) DEFAULT NULL,
+  `ine` varchar(45) DEFAULT NULL,
+  `curp` varchar(45) DEFAULT NULL,
+  `idseccion` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id` (`id`)
+  UNIQUE KEY `persona_clave_UNIQUE` (`persona_clave`),
+  KEY `id` (`id`),
+  KEY `fk_personas_secciones_idx` (`idseccion`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6522 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -76,7 +109,7 @@ CREATE TABLE `personas` (
 
 LOCK TABLES `personas` WRITE;
 /*!40000 ALTER TABLE `personas` DISABLE KEYS */;
-INSERT INTO `personas` VALUES (1,'Admin','Del','Sistema','Conocido','Conocido','Conocido','Administrador','',NULL,'',NULL,NULL,NULL,NULL,'','1975mao',NULL,NULL);
+INSERT INTO `personas` VALUES (1,'Admin','Del','Sistema','Conocido','Conocido','Conocido','Administrador','',NULL,'',NULL,NULL,NULL,'1975mao',NULL,NULL,NULL,NULL,0);
 /*!40000 ALTER TABLE `personas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,11 +121,11 @@ DROP TABLE IF EXISTS `problematicas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `problematicas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `problematica` varchar(45) NOT NULL,
-  `descripcion` varchar(245) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `problematica` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `descripcion` varchar(245) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +134,7 @@ CREATE TABLE `problematicas` (
 
 LOCK TABLES `problematicas` WRITE;
 /*!40000 ALTER TABLE `problematicas` DISABLE KEYS */;
-INSERT INTO `problematicas` VALUES (1,'NINGUNA','NINGUNA');
+INSERT INTO `problematicas` VALUES (1,'NINGUNA','NINGUNA'),(2,'PRUEBA','123');
 /*!40000 ALTER TABLE `problematicas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,17 +146,16 @@ DROP TABLE IF EXISTS `promovidos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `promovidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `ine` varchar(2) NOT NULL,
-  `id_solicitud` int(11) DEFAULT NULL,
-  `id_problematica` int(11) DEFAULT NULL,
-  `detalle_prob` text,
-  `detalle_sol` text,
-  `enlace_clave` varchar(45) NOT NULL,
-  `persona_clave` varchar(45) NOT NULL,
-  `voto` tinyint(4) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ine` varchar(2) COLLATE utf8mb4_general_ci NOT NULL,
+  `id_solicitud` int DEFAULT NULL,
+  `detalle_sol` text COLLATE utf8mb4_general_ci,
+  `id_problematica` int DEFAULT NULL,
+  `detalle_prob` text COLLATE utf8mb4_general_ci,
+  `enlace_clave` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `persona_clave` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1708 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1708 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,6 +168,33 @@ LOCK TABLES `promovidos` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `secciones`
+--
+
+DROP TABLE IF EXISTS `secciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `secciones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `numero` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `tipo_casilla` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `ubicacion` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `zona` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `secciones`
+--
+
+LOCK TABLES `secciones` WRITE;
+/*!40000 ALTER TABLE `secciones` DISABLE KEYS */;
+INSERT INTO `secciones` VALUES (1,'1B','BASICA','CENTRO','URBANA'),(3,'2B','CONTIGUA','CENTRO','BAJA');
+/*!40000 ALTER TABLE `secciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `solicitudes`
 --
 
@@ -143,11 +202,12 @@ DROP TABLE IF EXISTS `solicitudes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `solicitudes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `solicitud` varchar(45) NOT NULL,
-  `descripcion` varchar(245) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `solicitud` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
+  `descripcion` varchar(245) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `solicitud_UNIQUE` (`solicitud`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,20 +228,22 @@ DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` varchar(150) DEFAULT NULL,
-  `password` varchar(150) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `usuario` varchar(150) NOT NULL,
+  `password` varchar(150) NOT NULL,
   `perfil` varchar(45) DEFAULT NULL,
-  `estado` tinyint(4) NOT NULL,
+  `estado` tinyint NOT NULL,
   `ultimo_login` datetime DEFAULT CURRENT_TIMESTAMP,
   `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
-  `organizaciones_id` int(11) NOT NULL,
+  `organizaciones_id` int DEFAULT NULL,
   `tipo` varchar(45) DEFAULT NULL,
   `persona_clave` varchar(45) DEFAULT NULL,
-  `enlace` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`,`organizaciones_id`),
-  UNIQUE KEY `usuario_UNIQUE` (`usuario`)
-) ENGINE=MyISAM AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
+  `enlace` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `usuario_UNIQUE` (`usuario`),
+  UNIQUE KEY `persona_clave_UNIQUE` (`persona_clave`),
+  KEY `fk_usuarios_organizaciones1_idx` (`organizaciones_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +252,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47',1,NULL,'1975mao','1975mao'),(87,'2461024474','$2a$07$asxx54ahjppf45sd87a5auf3EwD9RAWYnOyF.m5B9g8Mw48.jPeqe','coordinador',1,'2022-04-05 14:51:18','2022-04-05 14:51:18',101,'federal','41252eymard',''),(86,'1618623','$2a$07$asxx54ahjppf45sd87a5auxRsWvN1naNjBWoRPrjZBcgSlokmqX1e','promotor',1,'2022-03-28 17:06:42','2022-03-28 17:06:42',100,NULL,'96851GERARDO ','85447GERARDO'),(85,'2461618623','$2a$07$asxx54ahjppf45sd87a5auxRsWvN1naNjBWoRPrjZBcgSlokmqX1e','coordinador',1,'2022-03-28 17:02:36','2022-03-28 17:02:36',100,'federal','85447GERARDO',''),(88,'2464024474','$2a$07$asxx54ahjppf45sd87a5auRajNP0zeqOkB9Qda.dSiTb2/n.wAC/2','coordinador',1,'2022-04-05 15:00:37','2022-04-05 15:00:37',101,'federal','97378eymard',''),(89,'mayolo','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','coordinador',1,'2022-04-05 15:24:36','2022-04-05 15:24:36',102,'federal','88052eymard',''),(90,'2461975358','$2a$07$asxx54ahjppf45sd87a5auxRsWvN1naNjBWoRPrjZBcgSlokmqX1e','promotor',1,'2022-04-05 15:36:22','2022-04-05 15:36:22',102,NULL,'2888Cristina','88052eymard'),(91,'2463113891','$2a$07$asxx54ahjppf45sd87a5aubpQm/eHXUZt31jl/.T0lmWtL13oS1eK','coordinador',1,'2022-04-05 16:41:11','2022-04-05 16:41:11',99,'federal','89290Pedro',''),(92,'2462229760','$2a$07$asxx54ahjppf45sd87a5auxRsWvN1naNjBWoRPrjZBcgSlokmqX1e','coordinador',1,'2022-04-06 20:15:04','2022-04-06 20:15:04',103,'distrital','75133Arithzel',''),(93,'2223677480','$2a$07$asxx54ahjppf45sd87a5auxRsWvN1naNjBWoRPrjZBcgSlokmqX1e','coordinador',1,'2022-04-06 20:37:18','2022-04-06 20:37:18',104,'distrital','92250palemon ','');
+INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47',1,NULL,'1975mao','1975mao'),(96,'mao','$2a$07$asxx54ahjppf45sd87a5auw8grQW7ZLraL8d7kIZFhUiti550Oun.','Administrador',1,'2023-11-15 17:23:55','2023-11-15 17:23:55',NULL,NULL,'76887Mao',NULL);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -203,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-06-15  8:37:54
+-- Dump completed on 2023-11-15 17:38:07
