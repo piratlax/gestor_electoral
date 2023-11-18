@@ -26,18 +26,12 @@ class ControladorUsuarios
 					if ($respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encrypt) {
 
 						if ($respuesta["estado"] == 1) {
-							$personaTabla = "personas";
-							$personaCampo = "persona_clave";
-							$personaValor = $respuesta["persona_clave"];
-							$persona = ModeloPersonas::mdlMostrarPersonas($personaTabla, $personaCampo, $personaValor);
 							$_SESSION["session_start"] = "c195b44182f3da8e9b3797915ad450aa";
 							$_SESSION["id"] = $respuesta["id"];
-							$_SESSION["idPersona"] = $persona["id"];
-							$_SESSION["personaClave"] = $persona["persona_clave"];
-							$_SESSION["nombre"] = $persona["nombre"] . " " . $persona["paterno"] . " " . $persona["materno"];
+							$_SESSION["personaClave"] = $respuesta["persona_clave"];
+							$_SESSION["nombre"] = $respuesta["nombre"];
 							$_SESSION["usuario"] = $respuesta["usuario"];
-							$_SESSION["idOrganizacion"] = $respuesta["organizaciones_id"];
-							$_SESSION["foto"] = $persona["foto"];
+							$_SESSION["foto"] = $respuesta["foto"];
 							$_SESSION["perfil"] = $respuesta["perfil"];
 							/*=============================================
                         REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
@@ -175,112 +169,8 @@ class ControladorUsuarios
 					}
 				}
 
-				//imagen INE Frontal
-				$fotoIne = "";
-				if (is_uploaded_file($_FILES['ineFrontalUser']['tmp_name'])) {
-
-					list($ancho, $alto) = getimagesize($_FILES["ineFrontalUser"]["tmp_name"]);
-
-					$nuevoAncho = 840;
-					$nuevoAlto = 530;
 
 
-
-					/*=============================================
-						   DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-						   =============================================*/
-					if ($_FILES["ineFrontalUser"]["type"] == "image/jpeg") {
-
-
-						/*=============================================
-							   GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-							   =============================================*/
-
-						$aleatorio = mt_rand(100, 999);
-
-						$fotoIne = "views/img/users/" . $persona_clave . "/" . $aleatorio . ".jpg";
-
-						$origen = imagecreatefromjpeg($_FILES["ineFrontalUser"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagejpeg($destino, $fotoIne);
-					}
-
-					if ($_FILES["ineFrontalUser"]["type"] == "image/png") {
-
-						/*=============================================
-							   GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-							   =============================================*/
-
-						$aleatorio = mt_rand(100, 999);
-
-						$fotoIne = "views/img/users/" . $persona_clave . "/" . $aleatorio . ".png";
-
-						$origen = imagecreatefrompng($_FILES["ineFrontalUser"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagepng($destino, $fotoIne);
-					}
-				}
-				//imagen INE Frontal
-				$fotoIneR = "";
-				if (is_uploaded_file($_FILES['ineReversoUser']['tmp_name'])) {
-
-					list($ancho, $alto) = getimagesize($_FILES["ineReversoUser"]["tmp_name"]);
-
-					$nuevoAncho = 840;
-					$nuevoAlto = 530;
-
-
-
-					/*=============================================
-						   DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
-						   =============================================*/
-					if ($_FILES["ineReversoUser"]["type"] == "image/jpeg") {
-
-
-						/*=============================================
-							   GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-							   =============================================*/
-
-						$aleatorio = mt_rand(100, 999);
-
-						$fotoIneR = "views/img/users/" . $persona_clave . "/" . $aleatorio . ".jpg";
-
-						$origen = imagecreatefromjpeg($_FILES["ineReversoUser"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagejpeg($destino, $fotoIneR);
-					}
-
-					if ($_FILES["ineReversoUser"]["type"] == "image/png") {
-
-						/*=============================================
-							   GUARDAMOS LA IMAGEN EN EL DIRECTORIO
-							   =============================================*/
-
-						$aleatorio = mt_rand(100, 999);
-
-						$fotoIneR = "views/img/users/" . $persona_clave . "/" . $aleatorio . ".png";
-
-						$origen = imagecreatefrompng($_FILES["inePromReverso"]["tmp_name"]);
-
-						$destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
-
-						imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
-
-						imagepng($destino, $fotoIneR);
-					}
-				}
 
 				$tabla = "usuarios";
 
@@ -288,39 +178,20 @@ class ControladorUsuarios
 
 				$datos = array(
 					"persona_clave" => $persona_clave,
+					"nombre" => strtoupper($_POST["nombre"]),
+					"paterno" => strtoupper($_POST["paterno"]),
+					"materno" => strtoupper($_POST["materno"]),
 					"perfil" => $_POST["perfil"],
 					"estado" => "1",
+					"persona_clave" => $persona_clave,
 					"enlace" => $_SESSION["personaClave"],
 					"usuario" => $_POST["nuevoUsuario"],
-					"password" => $encriptar
+					"password" => $encriptar,
+					"foto" => $ruta
 				);
-				$tablaPersona = "personas";
-				$nombre = strtoupper($_POST["nombre"]);
-				$paterno = strtoupper($_POST["paterno"]);
-				$materno = strtoupper($_POST["materno"]);
-				$direccion = strtoupper($_POST["direccion"]);
-				$localidad = strtoupper($_POST["localidad"]);
-				$ocupacion = strtoupper($_POST["ocupacion"]);
-				$colonia = strtoupper($_POST["colonia"]);
 
-				$datosPersona = array(
-					"persona_clave" => $persona_clave,
-					"nombre" => $nombre,
-					"paterno" => $paterno,
-					"materno" => $materno,
-					"direccion" => $direccion,
-					"colonia" => $colonia,
-					"localidad" => $localidad,
-					"foto" => $ruta,
-					"inef" => $fotoIne,
-					"inet" => $fotoIneR,
-					"ocupacion" => $ocupacion,
-					"celular" => $_POST["celular"],
-					"email" => $_POST["email"],
-					"telefono" => $_POST["telefono"]
-				);
 				$respuesta = ModeloUsuarios::mdlCrearUsuario($tabla, $datos);
-				$persona = ModeloPersonas::mdlCrearPersona($tablaPersona, $datosPersona);
+
 
 				if ($respuesta == "ok") {
 

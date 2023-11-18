@@ -7,13 +7,18 @@ class ModeloUsuarios
 
 	static public function mdlCrearUsuario($tabla, $datos)
 	{
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(usuario, password, perfil, estado, persona_clave) VALUES (:usuario, :password, :perfil, :estado, :persona_clave)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(usuario, password, perfil, estado, persona_clave, enlace, nombre, paterno, materno, foto) VALUES (:usuario, :password, :perfil, :estado, :persona_clave, :enlace, :nombre, :paterno, :materno, :foto)");
 
 		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 		$stmt->bindParam(":persona_clave", $datos["persona_clave"], PDO::PARAM_STR);
+		$stmt->bindParam(":enlace", $datos["enlace"], PDO::PARAM_STR);
+		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
+		$stmt->bindParam(":paterno", $datos["paterno"], PDO::PARAM_STR);
+		$stmt->bindParam(":materno", $datos["materno"], PDO::PARAM_STR);
+		$stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 
@@ -29,7 +34,7 @@ class ModeloUsuarios
 	{
 		if ($campo != null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT p.id, p.persona_clave as persona_clave, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, concat(p.direccion,' ',p.colonia) as direccion, p.localidad as localidad, u.usuario as usuario, p.foto as foto, u.perfil as perfil, u.estado as estado, u.ultimo_login as login,  p.inef as inef, p.inet as inet, p.ocupacion as ocupacion, u.password as password, u.organizaciones_id as organizaciones_id FROM usuarios as u INNER JOIN personas as p ON u.persona_clave=p.persona_clave WHERE u.$campo = :$campo; ");
+			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(u.nombre, ' ',u.paterno,' ',u.materno) as nombre, u.usuario as usuario, u.password as password, persona_clave, u.foto as foto, u.perfil as perfil, u.estado as estado, u.ultimo_login as login FROM usuarios as u  WHERE u.$campo = :$campo; ");
 
 			$stmt->bindParam(":" . $campo, $valor, PDO::PARAM_STR);
 
@@ -38,7 +43,7 @@ class ModeloUsuarios
 			return $stmt->fetch();
 		} else {
 
-			$stmt = Conexion::conectar()->prepare("SELECT p.id, p.persona_clave as persona_clave, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, u.usuario as usuario, p.foto as foto, u.perfil as perfil, u.estado as estado, u.ultimo_login as login FROM usuarios as u INNER JOIN personas as p ON u.persona_clave=p.persona_clave WHERE (perfil='capturista' OR perfil='Administrador'); ");
+			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(u.nombre, ' ',u.paterno,' ',u.materno) as nombre, u.usuario as usuario, u.foto as foto, u.perfil as perfil, u.estado as estado, u.ultimo_login as login FROM usuarios as u ");
 
 			$stmt->execute();
 			return $stmt->fetchAll();
