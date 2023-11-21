@@ -49,7 +49,7 @@
               <th>Foto</th>
               <th>Perfil</th>
               <th>Estado</th>
-              <th>Último login</th>
+              <th>Organizacion</th>
               <th>Acciones</th>
 
             </tr>
@@ -90,7 +90,7 @@
                 echo '<td><button class="btn btn-danger btn-xs btnActivar" idUsuario="' . $value["id"] . '" estadoUsuario="1">Desactivado</button></td>';
               }
 
-              echo '<td>' . $value["login"] . '</td>
+              echo '<td>' . $value["organizacion"] . '</td>
               <td>
 
                 <div class="btn-group">

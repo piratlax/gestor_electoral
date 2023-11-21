@@ -45,7 +45,7 @@ class ModeloPromotores
 		} else {
 			$enlace = $_SESSION["personaClave"];
 			if ($_SESSION["perfil"] == 'Administrador') {
-				$stmt = Conexion::conectar()->prepare("SELECT * from usuarios as u INNER JOIN personas as p ON u.persona_clave = p.persona_clave  WHERE (u.perfil='promotor');");
+				$stmt = Conexion::conectar()->prepare("SELECT * from usuarios as u INNER JOIN personas as p ON u.persona_clave = p.persona_clave INNER JOIN organizaciones ON u.organizaciones_id = organizaciones.id INNER JOIN secciones as s ON p.idseccion=s.id WHERE (u.perfil='promotor');");
 			} else {
 				$stmt = Conexion::conectar()->prepare("SELECT * from usuarios as u INNER JOIN personas as p ON u.persona_clave = p.persona_clave INNER JOIN organizaciones ON u.organizaciones_id = organizaciones.id INNER JOIN secciones as s ON p.idseccion=s.id WHERE (u.perfil='promotor' AND u.enlace = :enlace);");
 				$stmt->bindParam(":enlace", $enlace, PDO::PARAM_STR);
