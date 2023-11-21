@@ -55,7 +55,7 @@ CREATE TABLE `organizaciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `organizacion` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=109 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=110 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -64,6 +64,7 @@ CREATE TABLE `organizaciones` (
 
 LOCK TABLES `organizaciones` WRITE;
 /*!40000 ALTER TABLE `organizaciones` DISABLE KEYS */;
+INSERT INTO `organizaciones` VALUES (109,'Principal');
 /*!40000 ALTER TABLE `organizaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +185,7 @@ CREATE TABLE `secciones` (
   `ubicacion` varchar(250) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `zona` varchar(20) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,6 +194,7 @@ CREATE TABLE `secciones` (
 
 LOCK TABLES `secciones` WRITE;
 /*!40000 ALTER TABLE `secciones` DISABLE KEYS */;
+INSERT INTO `secciones` VALUES (4,'0','0','0','0');
 /*!40000 ALTER TABLE `secciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -254,7 +256,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47','1975mao','1975mao','views/img/users/admin/131.jpg',106);
+INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47','1975mao','1975mao','views/img/users/admin/131.jpg',109);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -267,4 +269,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-20 22:32:24
+-- Dump completed on 2023-11-20 23:51:56

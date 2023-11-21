@@ -34,7 +34,7 @@ class ModeloUsuarios
 	{
 		if ($campo != null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, u.usuario as usuario, u.password as password, u.persona_clave, u.foto as foto, u.perfil as perfil, u.estado as estado, o.organizacion as organizacion FROM usuarios as u  INNER JOIN personas as p ON u.persona_clave=p.persona_clave INNER JOIN organizaciones as o ON u.organizaciones_id=o.id WHERE u.$campo = :$campo; ");
+			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, u.usuario as usuario, u.password as password, u.persona_clave, u.foto as foto, u.perfil as perfil, u.estado as estado, o.organizacion as organizacion,u.organizaciones_id FROM usuarios as u  INNER JOIN personas as p ON u.persona_clave=p.persona_clave INNER JOIN organizaciones as o ON u.organizaciones_id=o.id WHERE u.$campo = :$campo; ");
 
 			$stmt->bindParam(":" . $campo, $valor, PDO::PARAM_STR);
 
