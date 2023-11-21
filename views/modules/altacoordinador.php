@@ -104,7 +104,7 @@
           </div>
 
           <div class="col-xs-12 col-sm-4">
-            <label for="colonia">Sección:</label>
+            <label for="Seccion">Sección:</label>
             <div class="input-group">
               <select class="form-control input-lg" id="seccion" name="seccion" required>
 

@@ -1,92 +1,90 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Administrar Coordinadores</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="home">Principal</a></li>
-              <li class="breadcrumb-item active">Coordinadores</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-
-    <!-- Main content -->
-    <section class="content">
-
-<div class="box">
-
-  <div class="box-header with-border">
-
-    <a href="altacoordinador">
-      
-    <input class="btn btn-primary" type="button" value="Agregar Coordinador"/>
-
-    </a>
-
+  <!-- Content Header (Page header) -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Administrar Coordinadores</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="home">Principal</a></li>
+            <li class="breadcrumb-item active">Coordinadores</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
   </div>
+  <!-- /.content-header -->
 
-  <div class="box-body">
-    
-   <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
-     
-    <thead>
-     
-     <tr>
-       
-       <th style="width:10px">#</th>
-       <th>Nombre</th>
-       <th>Organizacion</th>
-       <th>Celular</th>
-       <th>Colonia</th>
-       <th>Sección</th>
-       <th>eMail</th>
-       <th>Foto</th>
-       <th>Acciones</th>
+  <!-- Main content -->
+  <section class="content">
 
-     </tr> 
+    <div class="box">
 
-    </thead>
+      <div class="box-header with-border">
 
-    <tbody>
+        <a href="altacoordinador">
 
-    <?php
+          <input class="btn btn-primary" type="button" value="Agregar Coordinador" />
 
-    $item = null;
-    $valor = null;
+        </a>
 
-    $coordinadores = ControladorCoordinadores::ctrMostrarCoordinadores($item, $valor);
+      </div>
 
-   foreach ($coordinadores as $key => $value){
-      echo ' <tr>
-              <td>'.($key+1).'</td>
-              <td>'.$value["nombre"].'</td>
-              <td>'.$value["organizacion"].'</td>
-              <td>'.$value["celular"].'</td>
-              <td>'.$value["colonia"].'</td>
-              <td>'.$value["seccion"].'</td>
-              <td>'.$value["email"].'</td>';
-              if($value["foto"] != ""){
+      <div class="box-body">
 
-                echo '<td><img src="'.$value["foto"].'" class="img-thumbnail" width="40px"></td>';
+        <table class="table table-bordered table-striped dt-responsive tablas" width="100%">
 
-              }else{
+          <thead>
+
+            <tr>
+
+              <th style="width:10px">#</th>
+              <th>Nombre</th>
+              <th>Organizacion</th>
+              <th>Celular</th>
+              <th>Colonia</th>
+              <th>Sección</th>
+              <th>eMail</th>
+              <th>Foto</th>
+              <th>Acciones</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody>
+
+            <?php
+
+            $item = null;
+            $valor = null;
+
+            $coordinadores = ControladorCoordinadores::ctrMostrarCoordinadores($item, $valor);
+
+            foreach ($coordinadores as $key => $value) {
+              echo ' <tr>
+              <td>' . ($key + 1) . '</td>
+              <td>' . $value["nombre"] . '</td>
+              <td>' . $value["organizacion"] . '</td>
+              <td>' . $value["celular"] . '</td>
+              <td>' . $value["colonia"] . '</td>
+              <td>' . $value["numero"] . '</td>
+              <td>' . $value["email"] . '</td>';
+              if ($value["foto"] != "") {
+
+                echo '<td><img src="' . $value["foto"] . '" class="img-thumbnail" width="40px"></td>';
+              } else {
 
                 echo '<td><img src="views/img/users/default/anonymous.png" class="img-thumbnail" width="30px"></td>';
-
               }
               echo '<td>
 
                 <div class="btn-group">
                     
-                <button class="btn btn-success btnDetalleCoordinador" id="'.$value["id"].'" data-toggle="modal" data-target="#modalDetalleCoordinador"><i class="fa fa-address-card"></i></button>
+                <button class="btn btn-success btnDetalleCoordinador" id="' . $value["id"] . '" data-toggle="modal" data-target="#modalDetalleCoordinador"><i class="fa fa-address-card"></i></button>
 
                   
                 </div>  
@@ -94,19 +92,19 @@
               </td>
 
             </tr>';
-    }
+            }
 
 
-    ?> 
+            ?>
 
-    </tbody>
+          </tbody>
 
-   </table>
+        </table>
 
-  </div>
+      </div>
 
+    </div>
+
+  </section>
+  <!-- /.content -->
 </div>
-
-</section>
-    <!-- /.content -->
-  </div>

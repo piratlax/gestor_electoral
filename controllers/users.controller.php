@@ -28,6 +28,7 @@ class ControladorUsuarios
 						if ($respuesta["estado"] == 1) {
 							$_SESSION["session_start"] = "c195b44182f3da8e9b3797915ad450aa";
 							$_SESSION["id"] = $respuesta["id"];
+							$_SESSION["idOrganizacion"] = $respuesta["organizaciones_id"];
 							$_SESSION["personaClave"] = $respuesta["persona_clave"];
 							$_SESSION["nombre"] = $respuesta["nombre"];
 							$_SESSION["usuario"] = $respuesta["usuario"];
@@ -373,10 +374,9 @@ class ControladorUsuarios
 				}
 
 				$datos = array(
-					"nombre" => $_POST["editarNombre"],
-					"usuario" => $_POST["editarUsuario"],
 					"password" => $encriptar,
 					"perfil" => $_POST["editarPerfil"],
+					"id" => $_POST["editarIdUsuario"],
 					"foto" => $ruta
 				);
 

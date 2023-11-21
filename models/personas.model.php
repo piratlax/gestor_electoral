@@ -25,7 +25,7 @@ class ModeloPersonas
 	//CREAR PERSONA
 	static public function mdlCrearPersona($tabla, $datos)
 	{
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre, paterno, materno, direccion, colonia, localidad, ocupacion, celular, email, telefono, persona_clave, foto, inef, inet, latitud, longitud) VALUES (:nombre, :paterno, :materno, :direccion, :colonia, :localidad, :ocupacion, :celular, :email, :telefono, :persona_clave, :foto, :inef, :inet, :latitud, :longitud)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(nombre, paterno, materno, direccion, colonia, localidad, ocupacion, celular, email, telefono, persona_clave, foto, inef, inet, latitud, longitud, idseccion) VALUES (:nombre, :paterno, :materno, :direccion, :colonia, :localidad, :ocupacion, :celular, :email, :telefono, :persona_clave, :foto, :inef, :inet, :latitud, :longitud, :idseccion)");
 
 		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
 		$stmt->bindParam(":paterno", $datos["paterno"], PDO::PARAM_STR);
@@ -43,6 +43,7 @@ class ModeloPersonas
 		$stmt->bindParam(":inet", $datos["inet"], PDO::PARAM_STR);
 		$stmt->bindParam(":latitud", $datos["latitud"], PDO::PARAM_STR);
 		$stmt->bindParam(":longitud", $datos["longitud"], PDO::PARAM_STR);
+		$stmt->bindParam(":idseccion", $datos["seccion"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 

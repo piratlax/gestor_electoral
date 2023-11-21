@@ -19,22 +19,16 @@ class ModeloCoordinadores
 			return $stmt->fetch();
 		} else {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * from usuarios as u INNER JOIN personas as p ON u.persona_clave = p.persona_clave WHERE perfil='Coordinador';");
-
+			if ($_SESSION["perfil"] == "Administrador") {
+				$stmt = Conexion::conectar()->prepare("SELECT p.id, concat(p.nombre,' ', p.paterno, ' ',p.materno) as nombre, o.organizacion, p.celular, p.colonia, p.email, p.foto, s.numero  from personas as p INNER JOIN usuarios as u ON u.persona_clave = p.persona_clave INNER JOIN organizaciones as o ON o.id=u.organizaciones_id  INNER JOIN secciones as s ON p.idseccion=s.id WHERE perfil='coordinador';");
+			} else {
+				$stmt = Conexion::conectar()->prepare("SELECT p.id, concat(p.nombre,' ', p.paterno, ' ',p.materno) as nombre, o.organizacion, p.celular, p.colonia, p.email, p.foto, s.numero  from personas as p INNER JOIN usuarios as u ON u.persona_clave = p.persona_clave INNER JOIN organizaciones as o ON o.id=u.organizaciones_id  INNER JOIN secciones as s ON p.idseccion=s.id WHERE perfil='coordinador' AND u.enlace=" . $_SESSION('persona_clave') . ";");
+			}
 			$stmt->execute();
 			return $stmt->fetchAll();
 		}
 	}
-	//MOSTRAR ENLACES
-	static public function mdlMostrarEnlaces($tabla)
-	{
 
-
-		$stmt = Conexion::conectar()->prepare("SELECT c.idelector, p.nom, p.paterno, p.materno FROM $tabla as c INNER JOIN pad2018 as p on c.idelector=p.id;");
-
-		$stmt->execute();
-		return $stmt->fetchAll();
-	}
 	//MOSTRAR ORGANIZACIONES
 	static public function mdlMostrarOrganizacion($tabla)
 	{
@@ -48,15 +42,16 @@ class ModeloCoordinadores
 	//CREAR COORDINADOR
 	static public function mdlCrearCoordinador($tabla, $datos)
 	{
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(tipo, organizaciones_id, usuario, password, perfil, estado, persona_clave) VALUES (:tipo, :idorganizacion, :usuario, :password, :perfil, :estado, :persona_clave)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(tipo, organizaciones_id, usuario, password, perfil, estado, persona_clave, enlace) VALUES (:tipo, :idorganizacion, :usuario, :password, :perfil, :estado, :persona_clave, :enlace)");
 
 		$stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
-		//$stmt->bindParam(":idorganizacion", $datos["organizacion"], PDO::PARAM_INT);
+		$stmt->bindParam(":idorganizacion", $datos["organizacion"], PDO::PARAM_INT);
 		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
 		$stmt->bindParam(":perfil", $datos["perfil"], PDO::PARAM_STR);
 		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 		$stmt->bindParam(":persona_clave", $datos["persona_clave"], PDO::PARAM_STR);
+		$stmt->bindParam(":enlace", $datos["enlace"], PDO::PARAM_STR);
 
 		if ($stmt->execute()) {
 
@@ -66,7 +61,6 @@ class ModeloCoordinadores
 			return "error";
 		}
 
-		$stmt->close();
 		$stmt = null;
 	}
 }

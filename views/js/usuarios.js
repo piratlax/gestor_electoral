@@ -48,97 +48,7 @@ $(".fotoUsuario").change(function(){
   	}
 })
 
-$(".ineFrontalUser").change(function(){
 
-	var imagen = this.files[0];
-	
-	/*=============================================
-  	VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
-  	=============================================*/
-
-  	if(imagen["type"] != "image/jpeg" && imagen["type"] != "image/png"){
-
-  		$(".ineFrontalUser").val("");
-
-  		 Swal.fire({
-		      title: "Error al subir la imagen",
-		      text: "¡La imagen debe estar en formato JPG o PNG!",
-		      type: "error",
-		      confirmButtonText: "¡Cerrar!"
-		    });
-
-  	}else if(imagen["size"] > 20000000){
-
-  		$(".ineFrontalUser").val("");
-
-  		 Swal.fire({
-		      title: "Error al subir la imagen",
-		      text: "¡La imagen no debe pesar más de 2MB!",
-		      type: "error",
-		      confirmButtonText: "¡Cerrar!"
-		    });
-
-  	}else{
-
-  		var datosImagen = new FileReader;
-  		datosImagen.readAsDataURL(imagen);
-
-  		$(datosImagen).on("load", function(event){
-
-  			var rutaImagen = event.target.result;
-
-  			$(".previsualizarFrontalUser").attr("src", rutaImagen);
-
-  		})
-
-  	}
-})
-
-$(".ineReversoUser").change(function(){
-
-	var imagen = this.files[0];
-	
-	/*=============================================
-  	VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
-  	=============================================*/
-
-  	if(imagen["type"] != "image/jpeg" && imagen["type"] != "image/png"){
-
-  		$(".ineReversoUser").val("");
-
-  		 Swal.fire({
-		      title: "Error al subir la imagen",
-		      text: "¡La imagen debe estar en formato JPG o PNG!",
-		      type: "error",
-		      confirmButtonText: "¡Cerrar!"
-		    });
-
-  	}else if(imagen["size"] > 20000000){
-
-  		$(".ineReversoUser").val("");
-
-  		 Swal.fire({
-		      title: "Error al subir la imagen",
-		      text: "¡La imagen no debe pesar más de 2MB!",
-		      type: "error",
-		      confirmButtonText: "¡Cerrar!"
-		    });
-
-  	}else{
-
-  		var datosImagen = new FileReader;
-  		datosImagen.readAsDataURL(imagen);
-
-  		$(datosImagen).on("load", function(event){
-
-  			var rutaImagen = event.target.result;
-
-  			$(".previsualizarReversoUser").attr("src", rutaImagen);
-
-  		})
-
-  	}
-})
 
 /*=============================================
 EDITAR USUARIO
@@ -166,6 +76,7 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
 			$("#editarPerfil").html(respuesta["perfil"]);
 			$("#editarPerfil").val(respuesta["perfil"]);
 			$("#fotoActual").val(respuesta["foto"]);
+			$("#editarIdUsuario").val(respuesta["id"]);
 
 			$("#passwordActual").val(respuesta["password"]);
 
@@ -185,69 +96,7 @@ $(".tablas").on("click", ".btnEditarUsuario", function(){
 
 })
 
-/*=============================================
-DETALLE USUARIO
-=============================================*/
-$(".tablas").on("click", ".btnDetalleUsuario", function(){
 
-	var idUsuario = $(this).attr("idUsuario");
-	
-	var datos = new FormData();
-	datos.append("idUsuario", idUsuario);
-
-	$.ajax({
-
-		url:"ajax/usuarios.ajax.php",
-		method: "POST",
-		data: datos,
-		cache: false,
-		contentType: false,
-		processData: false,
-		dataType: "json",
-		success: function(respuesta){
-			
-			$("#detalleNombre").val(respuesta["nombre"]);
-			$("#detalleDireccion").val(respuesta["direccion"]);
-			$("#detalleLocalidad").val(respuesta["localidad"]);
-			$("#detalleUsuario").val(respuesta["usuario"]);
-			$("#detallePerfil").val(respuesta["perfil"]);
-			$("#detalleOcupacion").val(respuesta["ocupacion"]);
-
-			if(respuesta["foto"] != ""){
-
-				$(".previsualizarPerfilUser").attr("src", respuesta["foto"]);
-
-			}else{
-
-				$(".previsualizarPerfilUser").attr("src", "views/img/users/default/anonymous.png");
-
-			}
-
-			if(respuesta["inef"] != ""){
-
-				$(".previsualizarIneFrontalUser").attr("src", respuesta["inef"]);
-
-			}else{
-
-				$(".previsualizarIneFrontalUser").attr("src", "views/img/users/default/inefrontal.jpg");
-
-			}
-
-			if(respuesta["inet"] != ""){
-
-				$(".previsualizarIneReversoUser").attr("src", respuesta["inet"]);
-
-			}else{
-
-				$(".previsualizarIneReversoUser").attr("src", "views/img/users/default/reverso.jpg");
-
-			}
-
-		}
-
-	});
-
-})
 
 /*=============================================
 ACTIVAR USUARIO
