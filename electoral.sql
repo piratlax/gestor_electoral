@@ -100,7 +100,7 @@ CREATE TABLE `personas` (
   UNIQUE KEY `persona_clave_UNIQUE` (`persona_clave`),
   KEY `id` (`id`),
   KEY `fk_personas_secciones_idx` (`idseccion`)
-) ENGINE=MyISAM AUTO_INCREMENT=6529 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6530 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,6 +240,7 @@ CREATE TABLE `usuarios` (
   `ultimo_login` datetime DEFAULT CURRENT_TIMESTAMP,
   `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
   `persona_clave` varchar(45) DEFAULT NULL,
+  `tipo` varchar(15) DEFAULT NULL,
   `enlace` varchar(45) DEFAULT NULL,
   `foto` varchar(250) DEFAULT NULL,
   `organizaciones_id` int NOT NULL,
@@ -247,7 +248,7 @@ CREATE TABLE `usuarios` (
   UNIQUE KEY `usuario_UNIQUE` (`usuario`),
   UNIQUE KEY `persona_clave_UNIQUE` (`persona_clave`),
   KEY `fk_usuarios_organizaciones1_idx` (`organizaciones_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=103 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=104 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -256,7 +257,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47','1975mao','1975mao','views/img/users/admin/131.jpg',109);
+INSERT INTO `usuarios` VALUES (1,'admin','$2a$07$asxx54ahjppf45sd87a5auGZEtGHuyZwm.Ur.FJvWLCql3nmsMbXy','Administrador',1,'2021-02-24 19:17:47','2021-02-24 19:17:47','1975mao',NULL,'1975mao','views/img/users/admin/131.jpg',109);
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -269,4 +270,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-20 23:51:56
+-- Dump completed on 2023-11-21 10:00:43
