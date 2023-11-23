@@ -29,6 +29,7 @@ class ControladorUsuarios
 							$_SESSION["session_start"] = "c195b44182f3da8e9b3797915ad450aa";
 							$_SESSION["id"] = $respuesta["id"];
 							$_SESSION["idOrganizacion"] = $respuesta["organizaciones_id"];
+							$_SESSION["idSeccion"] = $respuesta["idseccion"];
 							$_SESSION["personaClave"] = $respuesta["persona_clave"];
 							$_SESSION["nombre"] = $respuesta["nombre"];
 							$_SESSION["usuario"] = $respuesta["usuario"];
@@ -179,18 +180,30 @@ class ControladorUsuarios
 
 				$datos = array(
 					"persona_clave" => $persona_clave,
-					"nombre" => strtoupper($_POST["nombre"]),
-					"paterno" => strtoupper($_POST["paterno"]),
-					"materno" => strtoupper($_POST["materno"]),
 					"perfil" => $_POST["perfil"],
 					"estado" => "1",
 					"persona_clave" => $persona_clave,
 					"enlace" => $_SESSION["personaClave"],
+					"organizacion_id" => $_SESSION["idOrganizacion"],
 					"usuario" => $_POST["nuevoUsuario"],
 					"password" => $encriptar,
 					"foto" => $ruta
 				);
+				$tablaPersona = "personas";
+				$nombre = strtoupper($_POST["nombre"]);
+				$paterno = strtoupper($_POST["paterno"]);
+				$materno = strtoupper($_POST["materno"]);
 
+				$datosPersona = array(
+					"persona_clave" => $persona_clave,
+					"nombre" => $nombre,
+					"paterno" => $paterno,
+					"materno" => $materno,
+					"foto" => $ruta,
+
+				);
+
+				$persona = ModeloPersonas::mdlCrearPersona($tablaPersona, $datosPersona);
 				$respuesta = ModeloUsuarios::mdlCrearUsuario($tabla, $datos);
 
 

@@ -1,5 +1,5 @@
   <footer class="main-footer">
-    <strong>Programacion y desarrollo <a href="http://www.riber.com.mx">RIBER Soluciones Digitales</a>.</strong>
+    <strong>Programacion y desarrollo <a href="http://www.riber.com.mx">Software Guadalupe</a>.</strong>
     Todos los derechos reservados.
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 3.0.5

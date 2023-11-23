@@ -95,7 +95,8 @@
         $_GET["ruta"] == "altapromovidos" ||
         $_GET["ruta"] == "altacoordinador" ||
         $_GET["ruta"] == "seccionales" ||
-        $_GET["ruta"] == "nominal"
+        $_GET["ruta"] == "nominal" ||
+        $_GET["ruta"] == "reportes"
       ) {
         include "modules/" . $_GET["ruta"] . ".php";
       } else {

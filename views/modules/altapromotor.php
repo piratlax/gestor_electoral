@@ -62,31 +62,6 @@
 
             </div>
           </div>
-
-          <div class="col-xs-12 col-sm-4">
-            <label for="Seccion">Sección:</label>
-            <div class="input-group">
-              <select class="form-control input-lg" id="seccion" name="seccion" required>
-
-                <option value="">Seleccionar Seccional</option>
-
-                <?php
-
-                $item = null;
-                $valor = null;
-
-                $seccional = ControladorSeccionales::ctrMostrarSeccionales($item, $valor);
-
-                foreach ($seccional as $key => $value) {
-
-                  echo '<option value="' . $value["id"] . '">' . $value["numero"] . '</option>';
-                }
-
-                ?>
-
-              </select>
-            </div>
-          </div>
         </div>
 
         <div class="form-group">

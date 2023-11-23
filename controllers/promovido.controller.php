@@ -216,7 +216,7 @@ class ControladorPromovidos
                 "foto" => $ruta,
                 "inef" => $fotoIne,
                 "inet" => $fotoIneR,
-                "seccion" => $_POST["seccion"],
+                "seccion" => $_SESSION["idSeccion"],
                 "ocupacion" => $ocupacion,
                 "celular" => $_POST["celular"],
                 "email" => $_POST["email"],

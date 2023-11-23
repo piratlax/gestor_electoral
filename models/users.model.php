@@ -7,7 +7,7 @@ class ModeloUsuarios
 
 	static public function mdlCrearUsuario($tabla, $datos)
 	{
-		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(usuario, password, perfil, estado, persona_clave, enlace, nombre, paterno, materno, foto) VALUES (:usuario, :password, :perfil, :estado, :persona_clave, :enlace, :nombre, :paterno, :materno, :foto)");
+		$stmt = Conexion::conectar()->prepare("INSERT INTO $tabla(usuario, password, perfil, estado, persona_clave, enlace, foto, organizaciones_id) VALUES (:usuario, :password, :perfil, :estado, :persona_clave, :enlace, :foto, :organizaciones_id)");
 
 		$stmt->bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt->bindParam(":password", $datos["password"], PDO::PARAM_STR);
@@ -15,10 +15,8 @@ class ModeloUsuarios
 		$stmt->bindParam(":estado", $datos["estado"], PDO::PARAM_STR);
 		$stmt->bindParam(":persona_clave", $datos["persona_clave"], PDO::PARAM_STR);
 		$stmt->bindParam(":enlace", $datos["enlace"], PDO::PARAM_STR);
-		$stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
-		$stmt->bindParam(":paterno", $datos["paterno"], PDO::PARAM_STR);
-		$stmt->bindParam(":materno", $datos["materno"], PDO::PARAM_STR);
 		$stmt->bindParam(":foto", $datos["foto"], PDO::PARAM_STR);
+		$stmt->bindParam(":organizaciones_id", $datos["organizacion_id"], PDO::PARAM_INT);
 
 		if ($stmt->execute()) {
 
@@ -34,7 +32,7 @@ class ModeloUsuarios
 	{
 		if ($campo != null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, u.usuario as usuario, u.password as password, u.persona_clave, u.foto as foto, u.perfil as perfil, u.estado as estado, o.organizacion as organizacion,u.organizaciones_id FROM usuarios as u  INNER JOIN personas as p ON u.persona_clave=p.persona_clave INNER JOIN organizaciones as o ON u.organizaciones_id=o.id WHERE u.$campo = :$campo; ");
+			$stmt = Conexion::conectar()->prepare("SELECT u.id, concat(p.nombre, ' ',p.paterno,' ',p.materno) as nombre, u.usuario as usuario, u.password as password, u.persona_clave, u.foto as foto, u.perfil as perfil, u.estado as estado, o.organizacion as organizacion,u.organizaciones_id,p.idseccion FROM usuarios as u  INNER JOIN personas as p ON u.persona_clave=p.persona_clave INNER JOIN organizaciones as o ON u.organizaciones_id=o.id WHERE u.$campo = :$campo; ");
 
 			$stmt->bindParam(":" . $campo, $valor, PDO::PARAM_STR);
 
