@@ -91,13 +91,6 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="reportes" class="nav-link">
-              <i class="nav-icon fas fa-file-invoice"></i>
-              <p>Reportes</p>
-            </a>
-          </li>
-
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
